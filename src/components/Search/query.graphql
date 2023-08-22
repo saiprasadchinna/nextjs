@@ -1,0 +1,27 @@
+# Write your query or mutation here
+query Search($pathId:String!,$language:String!,$searchKeyword:String!) {
+      search(
+        where: 
+        {
+          AND: [
+            {
+                       name: "_path"
+                       value:$pathId
+                       operator: CONTAINS
+                     }
+            {
+                      name: "_language"
+                      value: $language
+                    } 
+            {name:"title" value:$searchKeyword, operator: CONTAINS }
+          ]
+        }
+         first: 20) {
+        total
+        results {
+          id
+          name
+          path
+        }
+      }
+    }
