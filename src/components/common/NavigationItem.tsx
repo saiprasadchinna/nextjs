@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from '@sitecore-jss/sitecore-jss-nextjs';
 
-const NavigationItem = (items: any): JSX.Element => (
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/explicit-module-boundary-types
+const NavigationItem = ({ items }: { items: any }): JSX.Element => (
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
       {items &&

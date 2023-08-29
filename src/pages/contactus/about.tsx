@@ -37,8 +37,7 @@ function onSubmit() {
 }
 
 // const inter = Inter({ subsets: ['latin'] });
-
-export default function Home() {
+const Home = (): JSX.Element => {
   return (
     <>
       <Head>
@@ -80,4 +79,5 @@ export default function Home() {
       </main>
     </>
   );
-}
+};
+export default Home;

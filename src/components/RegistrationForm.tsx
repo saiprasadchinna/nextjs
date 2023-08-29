@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useI18n } from 'next-localization';
 
-export default function RegistrationForm() {
+const RegistrationForm = (): JSX.Element => {
   const { t } = useI18n();
   const validationSchema = Yup.object().shape({
     first_name: Yup.string().required(t('firstNameKey')),
@@ -149,4 +150,5 @@ export default function RegistrationForm() {
       </style>
     </div>
   );
-}
+};
+export default RegistrationForm;

@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-
-export default function MailChimp() {
+const MailChimp = (): JSX.Element => {
   const [state, setState] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
   // 0 - initial , 1 - loading, 2 - success, 2 - error
@@ -42,4 +42,5 @@ export default function MailChimp() {
       )}
     </div>
   );
-}
+};
+export default MailChimp;

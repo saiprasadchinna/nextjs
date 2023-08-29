@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Image, RichText, Text, DateField, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 
-const blog = ({ items }): JSX.Element => (
+const blog = ({ items }: { items: any }): JSX.Element => (
   <div className="row gx-5">
     {items &&
-      items.map((listItem, index) => (
+      items.map((listItem: any, index: any) => (
         <div className="col-lg-4 mb-5" key={`blogItem-${index}`}>
           <div className="card h-100 shadow border-0">
             <Image field={listItem.fields.image}></Image>

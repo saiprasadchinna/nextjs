@@ -27,7 +27,7 @@ const arr = {
 };
 const Layout = ({ layoutData }: LayoutProps): JSX.Element => {
   const { route } = layoutData.sitecore;
-  const IsBoilarItem = arr.boilarIDs.itemids.includes(route?.itemId);
+  const IsBoilarItem = arr.boilarIDs.itemids.includes(route?.itemId as string);
   //console.log(route?.itemId);
   //console.log(arr.boilarIDs.itemids.includes('a60d8648-9101-57d0-a280-93df8eaf3a80'));
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GraphQLRequestClient, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import { useState } from 'react';
 import {
@@ -18,6 +19,7 @@ type GraphQLConnectedDemoData = {
 };
 
 type SearchProps = ComponentProps &
+  GraphQLConnectedDemoData &
   StyleguideSpecimenFields & {
     fields: {
       searchRootItem: Item;
@@ -31,7 +33,7 @@ const Search = (props: SearchProps): JSX.Element => {
   const { locale } = useI18n();
   const { searchRootItem, searchboxPlaceholderText } = props.fields;
   const [message, setMessage] = useState('');
-  const [data, setData] = useState('');
+  const [data, setData] = useState<any>('');
   const handleChange = (event: any) => {
     setMessage(event.target.value);
   };
@@ -44,6 +46,7 @@ const Search = (props: SearchProps): JSX.Element => {
   async function SearchData() {
     try {
       const postQueryData = await fetchDataFromGraphQl(message, searchRootItem.id, locale());
+      debugger;
       console.log(postQueryData);
       return setData(postQueryData);
     } catch (e) {
@@ -58,6 +61,7 @@ const Search = (props: SearchProps): JSX.Element => {
             <img
               className="icon"
               src="https://www.adnec.ae/dist/AdnecWeb/adnec-vectors/Global-Search/search-typing.svg"
+              alt="icon"
             ></img>
             <input placeholder={searchboxPlaceholderText.value} onChange={handleChange}></input>
             <input type="button" value={'Enter'} onClick={SearchData}></input>
@@ -65,7 +69,9 @@ const Search = (props: SearchProps): JSX.Element => {
               {data?.search?.results &&
                 data?.search?.results.map((item: any, i: any) => (
                   <>
-                    <a href={item.url.path} className={i}>{item.title.value}</a>
+                    <a href={item.url.path} className={i}>
+                      {item.title.value}
+                    </a>
                     <br />
                   </>
                 ))}

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RichText, Text } from '@sitecore-jss/sitecore-jss-nextjs';
 
-const Tile = (items: any): JSX.Element => (
+const Tile = ({ items }: { items: any }): JSX.Element => (
   <div className="col-lg-8">
     <div className="row gx-5 row-cols-1 row-cols-md-2">
       {items &&
