@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 // import { Inter } from 'next/font/google';
 // import styles from '@/styles/Home.module.css';
 import styles from './Home.module.css';
@@ -51,9 +50,10 @@ export default function Home() {
         <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/saga-blue.css" />
         <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/arya-blue.css" />
         <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/vela-blue.css" />
+        {/* // eslint-disable-next-line @next/next/no-sync-scripts
         <script
           src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
-          crossorigin
+          crossOrigin
         ></script>
         <script
           src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
@@ -68,7 +68,7 @@ export default function Home() {
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
           crossorigin="anonymous"
-        />
+        /> */}
       </Head>
       <main className={styles.main}>
         <button type="button" className="color:red" onClick={onSubmit}>

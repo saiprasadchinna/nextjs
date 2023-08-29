@@ -1,12 +1,4 @@
-import {
-  useComponentProps,
-  constants,
-  GraphQLRequestClient,
-  GetServerSideComponentProps,
-  Field,
-  Text,
-  getFieldValue,
-} from '@sitecore-jss/sitecore-jss-nextjs';
+import { GraphQLRequestClient, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import { useState } from 'react';
 import {
   SearchDocument,
@@ -36,11 +28,11 @@ type SearchProps = ComponentProps &
     };
   };
 const Search = (props: SearchProps): JSX.Element => {
-  const { t, locale } = useI18n();
+  const { locale } = useI18n();
   const { searchRootItem, searchboxPlaceholderText } = props.fields;
   const [message, setMessage] = useState('');
   const [data, setData] = useState('');
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setMessage(event.target.value);
   };
 
@@ -71,9 +63,9 @@ const Search = (props: SearchProps): JSX.Element => {
             <input type="button" value={'Enter'} onClick={SearchData}></input>
             <div>
               {data?.search?.results &&
-                data?.search?.results.map((item, i) => (
+                data?.search?.results.map((item: any, i: any) => (
                   <>
-                    <a href={item.url.path}>{item.title.value}</a>
+                    <a href={item.url.path} className={i}>{item.title.value}</a>
                     <br />
                   </>
                 ))}

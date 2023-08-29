@@ -1,6 +1,5 @@
 import { Text, Field, ImageField, RichText, Image } from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
-import { useI18n } from 'next-localization';
 // import { useI18n } from 'next-localization';
 
 type QuoteProps = ComponentProps & {

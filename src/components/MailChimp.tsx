@@ -4,7 +4,7 @@ export default function MailChimp() {
   const [state, setState] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
   // 0 - initial , 1 - loading, 2 - success, 2 - error
-  const subscribe = async (e) => {
+  const subscribe = async (e: any) => {
     e.preventDefault();
     //alert('event fire');
     setState(1);
