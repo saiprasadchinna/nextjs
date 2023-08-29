@@ -1,27 +1,28 @@
 # Write your query or mutation here
-query Search($pathId:String!,$language:String!,$searchKeyword:String!) {
-      search(
-        where: 
-        {
-          AND: [
-            {
-                       name: "_path"
-                       value:$pathId
-                       operator: CONTAINS
-                     }
-            {
-                      name: "_language"
-                      value: $language
-                    } 
-            {name:"title" value:$searchKeyword, operator: CONTAINS }
-          ]
-        }
-         first: 20) {
-        total
-        results {
-          id
-          name
-          path
-        }
+query Search($pathId: String!, $language: String!, $searchKeyword: String!) {
+  search(
+    where: {
+      AND: [
+        { name: "_path", value: $pathId, operator: CONTAINS }
+        { name: "_language", value: $language }
+        { name: "enableSearch", value: "true" }
+        { name: "title", value: $searchKeyword, operator: CONTAINS }
+      ]
+    }
+  ) {
+    total
+    results {
+      id
+      name
+      path
+      version
+      url {
+        siteName
+        path
+      }
+      title: field(name: "title") {
+        value
       }
     }
+  }
+}

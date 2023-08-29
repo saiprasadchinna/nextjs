@@ -1,10 +1,36 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { url } from 'inspector';
 import { useI18n } from 'next-localization';
+
+const postDataAxios = async (candidat: any) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  //#region Internal api calls
+  // const response = await axios.post('api/editing/form', JSON.stringify(candidat), config);
+  // console.log(response.data);
+  // alert('Thanks for Registering.');
+  //#endregion
+  const contact = {
+    email_address: candidat.email,
+    status: 'subscribed',
+    merge_fields: { FNAME: candidat.email.split('@')[0], LNAME: candidat.email.split('@')[1] },
+    tags: ['dargroup'],
+  }; // Add the contact to the list
+
+  try {
+    const response = await axios.post('api/subscribe', contact, config);
+    console.log(response.data);
+    alert('Thanks for subscribing.');
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export default function RegistrationForm() {
   const { t } = useI18n();
@@ -15,6 +41,7 @@ export default function RegistrationForm() {
     password: Yup.string().required('password is required'),
     phoneNumber: Yup.string().required('Phone Number is required'),
   });
+  //console.log('Data:', Datas);
 
   const formOptions = { resolver: yupResolver(validationSchema) };
   // get functions to build form with useForm() hook
@@ -59,15 +86,15 @@ export default function RegistrationForm() {
       //#endregion
 
       const Url =
-        'https://localhost:44315/Home/AddUsers?Name=' +
+        'https://localhost:44315/Home?Name=' +
         candidat.first_name +
         '&Email=' +
         candidat.email +
         '&PhoneNumber=' +
         candidat.phoneNumber +
         '';
-      const dataaa = postData(Url, candidat);
-      console.log(dataaa);
+      // const dataaa = postData(Url, candidat);
+      // console.log(dataaa);
       // const response2 = await axios.get('https://jsonplaceholder.typicode.com/users');
       // console.log('ResponseData' + JSON.stringify(response2.data));
       await fetch(Url, {
@@ -97,10 +124,16 @@ export default function RegistrationForm() {
       console.error(error);
     }
   }
-
-  function onSubmit(e) {
-    postCall();
-  }
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    //postCall();
+    //   //postDataAxios(candidat);
+    callToNormalHttpRequest();
+  };
+  // function onSubmit(e) {
+  //   //postCall();
+  //   //postDataAxios(candidat);
+  //   callToNormalHttpRequest();
+  // }
   return (
     <div className="my-8 mx-8">
       <form onSubmit={handleSubmit(onSubmit)} id="reset">
@@ -191,4 +224,62 @@ export default function RegistrationForm() {
       </style>
     </div>
   );
+  async function callToNormalHttpRequest() {
+    //const [Datas, setDatas] = useState([]);
+
+    const contact = {
+      email_address: candidat.email,
+      status: 'subscribed',
+      tags: ['dargroup dev'],
+    };
+    const authorization = 'Basic ' + 'e8fbc1b4ba89033bd22e10ede667469e-us12';
+    // const authorization =
+    //   'Basic ' +
+    //   Buffer.from('randomstring:' + 'e8fbc1b4ba89033bd22e10ede667469e-us12').toString('base64');
+    console.log(authorization);
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: authorization,
+      },
+      withCredentials: true,
+      mode: 'no-cors',
+      body: JSON.stringify(contact),
+    };
+
+    axios
+      .get('https://us12.api.mailchimp.com/3.0/lists', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: authorization,
+        },
+      })
+      .then(function (response) {
+        //setDatas(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    try {
+      // const response = await axios.post('/api/subscribe', contact, config);
+      // console.log(response.data);
+      await fetch('https://us12.api.mailchimp.com/3.0/lists/17e94f4367/members/', config)
+        .then((data) => console.log(data))
+        .then((text) => {
+          try {
+            //const data = JSON.parse(text);
+            console.log('success');
+            console.log(text);
+          } catch (error) {
+            console.error('Invalid JSONN:', text);
+          }
+        })
+        .catch((error) => console.error(error));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

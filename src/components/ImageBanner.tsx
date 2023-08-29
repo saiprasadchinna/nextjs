@@ -28,13 +28,12 @@ const ImageBanner = (props: ImageBannerProps): JSX.Element => (
             <h1 className="display-5 fw-bolder text-white mb-2">
               <Text field={props.fields.title}></Text>
             </h1>
-            <p className="lead fw-normal text-white-50 mb-4">
+            <p className="lead fw-normal text-white-50 mb-4 Test">
               <RichText field={props.fields.description}></RichText>
+              <br />
+              <Link field={props.fields.primarylink as LinkField}></Link>
+              <Link field={props.fields.secondarylink as LinkField}></Link>
             </p>
-            <div className="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-              <Link field={props.fields.primarylink}></Link>
-              <Link field={props.fields.secondarylink}></Link>
-            </div>
           </div>
         </div>
         <div className="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
